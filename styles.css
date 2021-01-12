@@ -1,0 +1,129 @@
+body{
+    background-color: aliceblue;
+    text-align: center;
+}
+.required:before{
+    content:"*";
+    color: red;
+    align-self: center;
+    
+}
+.evaluateButton{
+    font-size: 20px;
+}
+#englishButton{
+    border: solid;
+    background-color: #EE8888;
+}
+#frenchButton{
+    border: solid;
+    background-color:#8888EE;
+}
+.dropdown-menu{
+min-width: 20rem !important;
+    border-radius: 45px !important;
+    padding: 20px !important;
+}
+
+.hesitationTally{
+    width: 50px;
+}
+.members{
+    border: solid 1px;
+    padding: 20px;
+    background-color: aliceblue;
+    border-radius: 15px;
+    margin-bottom: 2%;
+    padding-right: 10%;
+    padding-left: 10%;
+    
+
+}
+
+.memberNames{
+    text-align: center;
+}
+
+.commentBox{
+    border: solid;
+    border-radius: 180px;
+    padding: 10px;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    margin: 10px;
+    background-color: #FFFFFF;
+
+}
+.commentBoxText{
+    padding: 5px;
+    width: 90%;
+}
+.commentBoxTimestamp{
+
+    border: solid 1px;
+    background-color: #e0ebff;
+    margin: 5px;
+    max-height: 30px;
+    text-align: center;
+    padding: 5px;
+    padding-bottom: 30px;
+    justify-content: center;
+}
+.dropdown-menu{
+    max-height: 250px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: row;
+}
+.timingDiv{
+    display: flex;
+
+}
+.btn-group{
+    justify-content: center;
+    align-content: center;
+    margin-top: 5px;
+}
+.firstName{
+    font-size: 20px;
+}
+.lastName{
+    font-size: 20px;
+}
+.btn-toolbar{
+    flex-wrap: nowrap !important;
+
+}
+
+
+
+#chronometerDiv{
+    background-color: #d3d3f7;
+    padding: 20px;
+    margin: 10px;
+    margin-top: 50px;
+}
+
+#hesitationsDiv{
+    background-color: #96e9d4;
+    padding: 20px;
+    margin: 10px;
+}
+
+#grammarDiv{
+    background-color:#f3f3f3f6;
+    padding: 20px;
+    margin: 10px;
+}
+#commentDiv{
+    background-color: #bdd1fc;
+    padding: 20px;
+    margin: 10px;
+}
+
+#generalNoteDiv{
+    background-color: #d3eaf7;
+    padding: 20px;
+    margin: 10px;
+}

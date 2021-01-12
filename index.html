@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang = "fr"></html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name = "Assistant Toastmasters">
+    <link rel = "stylesheet" href = "styles.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src = "script.js" defer></script>
+    
+    <title> Assistant Toastmasters</title>
+</head>
+
+<body onload = "init()">
+    <div class="jumbotron text-center">
+        <h1>Assistant Toastmasters</h1>
+        <p>Préparons-nous pour votre prochaine réunion!</p> 
+      </div>
+
+
+
+<div class = "container">
+  <form action="/startEvent" method="POST">
+    <div class = "row">
+      <div class = "col-sm">
+        <h3>Organizer la Reunion:</h3>
+        <div class="form-group">
+          <label for="formGroupExampleInput">Reunion #</label>
+          <input type="number" class="form-control" name = "reunionNumber" id="reunionNumber" min="1",max="1000">
+        </div>
+        <div class="form-group">
+          <label for="formGroupExampleInput2">Thème</label>
+          <input type="text" class="form-control" name = "theme" id="theme" value = "" placeholder="">
+        </div>
+        <div class="form-group">
+          <label for="example-time-input" class="col-12 col-form-label">L'heure de Début</label>
+          <div class="col-10">
+            <input class="form-control" type="time" name = "startTime" value="18:45:00" id="startTime">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="example-time-input" class="col-12 col-form-label">Mot du Jour</label>
+          <div class="col-10">
+            <input class="form-control" type="text" name = "motDeJour" value = "" id="motDeJour">
+          </div>
+        </div>
+      </div>
+      <div class = "col-sm">
+        <h3>Choisissez Votre Rôle: </h3>
+        <div class ="form-check">
+          <input class="form-check-input" type="radio" name="exampleRadios" id="evaluator" value="option1">
+            <label class="form-check-label" for="exampleRadios1">
+          Èvaluateur
+            </label>
+        <br><br>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="" id="chronometer" unchecked disabled>
+            <label class="form-check-label" for="defaultCheck1">
+              Chronomètre
+            </label>
+        </div>
+        
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="" id="grammer" unchecked disabled>
+            <label class="form-check-label" for="defaultCheck1">
+            Grammaire
+            </label>
+        </div>
+      
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="" id="hesitations" unchecked disabled>
+            <label class="form-check-label" for="defaultCheck1">
+            Hésitations
+            </label>
+        </div>
+      </div>
+      <br>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="exampleRadios" id="nonEvaluator" value="option2" checked>
+          <label class="form-check-label" for="exampleRadios2">
+          Autre
+          </label>
+        </div>
+        <br>
+      </div>
+    </div>
+    <div class ="row" id = "memberList">
+      <div class = "col-sm">
+        <h3>Ajouter des Membres:</h3>
+        <div id = "memberResults" class = "text-center"> </div>
+        <br>
+        <div class="form-row required">
+        
+          <div class="col">
+            <input type="text" id = "firstName" class="form-control required" placeholder="Prénom" required>
+          </div>
+          <div class="col">
+          <input type="text" id = "lastName" class="form-control" placeholder="Nom de famille">
+          </div>
+        </div>
+      </div>
+    
+    </div>
+    <br>
+    <button type ="button" id = "addMember" disabled>Ajouter</button>
+    <br><br>
+    <div class = "col-md-12 text-right">
+    <button type="button" id = "submitReunionForm" class="btn btn-primary" disabled>Commence</button>
+    </div>
+    </form>
+
+
+  </form>
+  </div>
+
+
+</body>

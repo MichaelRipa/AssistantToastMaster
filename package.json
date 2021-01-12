@@ -1,0 +1,20 @@
+{
+  "name": "toastmasters-site",
+  "version": "1.0.0",
+  "description": "A site created to help aid members participating in Toastmaster reunions. Un site créé pour aider les membres à participer aux réunions Toastmaster",
+  "main": "script.js",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "bootstrap": "^4.5.3",
+    "express": "^4.17.1",
+    "express-session": "^1.17.1",
+    "pug": "^3.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "\"echo \\\"Error: no test specified\\\" && exit 1\"",
+    "start": "node server.js"
+  },
+  "author": "Michael Ripa",
+  "license": "ISC"
+}

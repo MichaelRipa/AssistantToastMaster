@@ -1,0 +1,162 @@
+doctype html
+html(lang='fr')
+	head
+	body
+		meta(charset='utf-8')
+		meta(name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no')
+		meta(name='Assistant Toastmasters')
+		link(rel='stylesheet' href='styles.css')
+		link(rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css' integrity='sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm' crossorigin='anonymous')
+		script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js')
+		script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js')
+		script(src='https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js')
+		script(src='https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js')
+		script(src='script.js' defer='')
+		title  Assistant Toastmasters
+		.jumbotron.text-center
+			h1 Assistant Toastmasters
+			#reunionInfo.col-md-6.mx-auto
+				.form-group
+					label#reunionNumLabel(for='reunionSlider') Réunion no: #{reunionNum}
+					input#reunionSlider.form-control-range(type='range' min=0 max =1000 value=reunionNum disabled='')
+				.input-group.input-group-sm.mb-3
+					.input-group-prepend
+						span#inputGroup-sizing-sm.input-group-text Thème 
+					input#themeInput.form-control(type='text' aria-label='Small' disabled='' aria-describedby='inputGroup-sizing-sm' value=`${theme}`)
+				.input-group.input-group-sm.mb-3
+					.input-group-prepend
+						span#inputGroup-sizing-sm.input-group-text Mot du jour
+					input#mdjInput.form-control(type='text' aria-label='Small' aria-describedby='inputGroup-sizing-sm' disabled='' value=`${motDeJour}` placeholder= '-')
+		.containerjustify-content-center.text-center.mx-auto
+			div
+				h1 Compte Rendu
+
+				
+				
+
+				
+				
+				if chronometer
+					.col-md-6.text-center.justify-content-center.mx-auto#chronometerDiv
+						h3 Chonometre:
+						p L'heure de Debut: #{startTime}
+						canvas.canvasDiv#chronometerChart(width="400" height="400")
+						-for (let i = 0; i < members.length; i++)
+							-if(members[i].hasOwnProperty("chronometer") == true)
+								h5 #{members[i].first} #{members[i].last}
+								-for (let j = 0; j < members[i].chronometer.length; j++)
+									.commentBox
+										.commentBoxTimestamp  #{members[i].chronometer[j].end}
+										.commentBoxText  #{members[i].chronometer[j].duration} seconds
+
+				if hesitations
+					.col-md-6.text-center.justify-content-center.mx-auto#hesitationsDiv
+						h3 Hésitations
+						h6 Nombre total d'hésitations: #{totalHesitations}
+
+						canvas.canvasDiv#hesitationsChart(width="400" height="400")
+						
+						
+				if grammar
+					.col-md-6.text-center.justify-content-center.mx-auto#grammarDiv
+						h3 Grammaire:
+						-for (let i = 0; i < members.length; i++)
+							-if(members[i].hasOwnProperty("grammar") == true)
+								h6 #{members[i].first} #{members[i].last}:
+								-for (let j = 0; j < members[i].grammar.length; j++)
+								
+									.commentBox(style='background-color:' + members[i].grammar[j].tag)
+										.commentBoxTimestamp #{members[i].grammar[j].time}
+										.commentBoxText #{members[i].grammar[j].comment}
+					
+
+				.col-md-6.text-center.justify-content-center.mx-auto#commentDiv
+					h3 Commentaires
+					
+					-for(let i = 0; i < members.length; i++)
+						
+						-if(members[i].hasOwnProperty("comments") == true)
+							h6 #{members[i].first} #{members[i].last}
+							-for(let j = 0; j < members[i].comments.length; j++)
+								.commentBox
+									.commentBoxTimestamp #{members[i].comments[j].time}
+									.commentBoxText  #{members[i].comments[j].comment}
+
+				.col-md-6.text-center.justify-content-center.mx-auto#generalNoteDiv
+					h3 Observations générales
+					-for(let i = 0; i < generalNotes.length; i++)
+						.commentBox
+							.commentBoxTimestamp #{generalNotes[i].time}
+							.commentBoxText #{generalNotes[i].comment}
+				
+
+				script.
+					function createBarGraph(canvasId,canvasData,canvasLabel){
+						var currentChart = document.getElementById(canvasId);
+						var ctx = document.getElementById(canvasId).getContext('2d');
+						currentChart.style.backgroundColor = "#FFFFFF";
+						currentChart.style.display = "inline";
+						currentChart.style.maxWidth = "400px";
+						currentChart.style.maxHeight = "400px";
+						var myChart = new Chart(ctx, {
+							type: 'bar',
+							data: {
+								labels: "!{members.map(mem => mem.first)}".split(","),
+								datasets: [{
+								label: canvasLabel,
+								data: canvasData,
+								backgroundColor: [
+								'rgba(255, 99, 132, 0.2)',
+								'rgba(54, 162, 235, 0.2)',
+								'rgba(255, 206, 86, 0.2)',
+								'rgba(75, 192, 192, 0.2)',
+								'rgba(153, 102, 255, 0.2)',
+								'rgba(255, 159, 64, 0.2)'
+								],
+								borderColor: [
+								'rgba(255, 99, 132, 1)',
+								'rgba(54, 162, 235, 1)',
+								'rgba(255, 206, 86, 1)',
+								'rgba(75, 192, 192, 1)',
+								'rgba(153, 102, 255, 1)',
+								'rgba(255, 159, 64, 1)'
+								],
+								borderWidth: 1
+								}]
+								},
+							options: {
+								scales: {
+									yAxes: [{
+										ticks: {
+											beginAtZero: true,
+											fontSize: 20
+										}
+									}],
+									xAxes: [{
+										ticks: {
+											fontSize: 15
+											
+										}
+									}]
+								},
+								legend:{
+									display: true,
+									labels: "#{members.map(mem => mem.first)}"
+								},
+							responsive: true
+							}
+							});
+					}
+					let hesitationArr = "#{members.map(mem => mem.hesitations)}".split(",").map(x=>+x);
+					let chronometerArr = "#{members.map(mem => mem.totalTime)}".split(",").map(x=>+x)
+
+					if(!!("#{hesitations}") === true){
+			
+						createBarGraph('hesitationsChart',hesitationArr,"Nom Hesitations");
+					}
+					if(!!("#{chronometer}") == true){
+						createBarGraph('chronometerChart',chronometerArr,"Temps de Parole");
+					}
+
+					
+

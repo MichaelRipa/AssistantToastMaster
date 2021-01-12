@@ -1,0 +1,95 @@
+doctype html
+html(lang='fr')
+	head
+	body(onload='eventInit()')
+		meta(charset='utf-8')
+		meta(name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no')
+		meta(name='Assistant Toastmasters')
+		link(rel='stylesheet' href='styles.css')
+		link(rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css' integrity='sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm' crossorigin='anonymous')
+		script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js')
+		script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js')
+		script(src='https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js')
+		script(src='script.js' defer='')
+		title  Assistant Toastmasters
+		.jumbotron.text-center
+			h1 Assistant Toastmasters
+			#reunionInfo.col-md-6.mx-auto
+				.form-group
+					label#reunionNumLabel(for='reunionSlider') Réunion no: #{reunionNum}
+					input#reunionSlider.form-control-range(type='range' min=0 max =1000 value=reunionNum disabled='')
+				.input-group.input-group-sm.mb-3
+					.input-group-prepend
+						span#inputGroup-sizing-sm.input-group-text Thème 
+					input#themeInput.form-control(type='text' aria-label='Small' disabled='' aria-describedby='inputGroup-sizing-sm' value=`${theme}`)
+				.input-group.input-group-sm.mb-3
+					.input-group-prepend
+						span#inputGroup-sizing-sm.input-group-text Mot du jour
+					input#mdjInput.form-control(type='text' aria-label='Small' aria-describedby='inputGroup-sizing-sm' disabled='' value=`${motDeJour}`)
+				button#modifyReunionInfo Éditer
+		.container.justify-content-center.text-center
+			div.justify-content-center.text-center
+				h3  Membres
+				br
+				-for (let i = 0; i < members.length; i++)
+				
+					.col-md-6.justify-content-center.text-center.members.mx-auto
+						.row
+							.col-sm-8.memberNames
+								span.firstName(id = "firstName" + i) #{members[i].first } 
+								span.lastName(id = "lastName" + i) #{members[i].last}
+							
+							.col-sm-4.text-right.timingDiv
+								.pauseDiv(id='pauseButton' + i)
+								.timerDiv(id='timer'+ i) 
+						.btn-toolbar.buttonGroup(role='toolbar' flex-wrap='nowrap')
+							if chronometer
+								.col-md-3.btn-group(id="timerDiv" + i)
+									button.timerButton(id='timerButton' + i) ⏲
+							if hesitations
+								.col-md-3.btn-group
+									button.evaluateButton(data-toggle='dropdown' href='#' aria-haspopup='true' aria-expanded='false') 🤷‍♂️
+									.dropdown-menu(aria-labelledby='dropdownMenuLink' id='hesitationDropdown' + i )
+										label(for='exampleFormControlTextarea1') Hésitations
+										.col-md-6.btn-group
+											button.subtractHes(disabled='true' id = "subtractHesitation" + i) ➖
+											input.hesitationTally(type='text' value='0' disabled='' id = "hesitationTally" + i)
+											button.addHes(id = "addHesitation" + i) ➕ 
+							if grammar
+								.col-md-3.btn-group
+									.dropdown.show
+										button.evaluateButton(href='#' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false') 📝
+										.dropdown-menu(aria-labelledby='dropdownMenuLink')
+											label.justify-content-center(for='exampleFormControlTextarea1') Ajouter un point gramatical
+											br
+											.row.justify-content-center
+												button.semanticError(id = "semanticMember" + i)  📜
+												button.phoneticError(id = "phoneticMember" + i) 🗣
+											.row.justify-content-center
+												textarea(rows='3' id = 'grammarTextArea' + i)
+											br
+											.row.justify-content-center
+											
+												button.addGrammarButton(id= 'grammarButton' + i) Ajoute
+											.memberNoteGrammar(id = 'grammarNote' + i)
+							.col-md-3.btn-group
+								.dropdown.show
+									button.evaluateButton(href='#' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false') 💬
+									.dropdown-menu(aria-labelledby='dropdownMenuLink')
+										label(for='exampleFormControlTextarea1') Ajouter des notes pour #{members[i].first}
+										textarea.form-control(id = 'memberTextArea' + i rows='3')
+										.row
+											.col-md-6.text-left
+												button.memberNoteButton(id = 'addNote' + i) Ajoute
+											.memberNoteDiv(id ='memberNotes' + i)
+						br
+			div
+				h3 Notes:
+				#commentSection
+
+				label(for='exampleFormControlTextarea1') Ajouter des notes générales concernant la reunion
+				textarea#generalTextArea.form-control(rows='3')
+				button#generalComment Ajouter
+			
+			br
+			button#compteRendu Compte Rendu
